@@ -88,7 +88,7 @@ The school should adopt a **cloud-to-cloud backup service** that covers both Goo
 
 **Key actions include:**
 1. Select a backup vendor offering NZ data residency or strong compliance guarantees.  
-2. Retain backups for at least **seven years**, aligning with school record-keeping norms.  
+2. Retain backups for **five to seven years, consistent with New Zealand public-sector record-keeping standards**.  
 3. Include Shared Drives, teacher mailboxes, and key admin accounts.  
 4. Schedule annual restore testing.  
 5. Document the backup and recovery process in the school’s ICT policy.
@@ -121,4 +121,7 @@ Implementing an automated backup for Google Workspace and Microsoft 365 provides
 - [N4L Cybersecurity Guidance](https://www.n4l.co.nz/)  
 - [Google Workspace for Education Help Centre](https://support.google.com/edu)  
 - [Microsoft 365 Education Support](https://learn.microsoft.com/en-us/education/)  
-- [Redstor for Education NZ](https://www.redstor.com/education)
+- [Redstor for Education NZ](https://www.redstor.com/education)  
+- [Public Records Act 2005](https://www.legislation.govt.nz/act/public/2005/0040/latest/DLM345529.html)  
+- [Inland Revenue: Retention of Business and Tax Records](https://www.ird.govt.nz/records)  
+- [Audit NZ: Record Keeping Guidance for Schools](https://auditnz.parliament.nz/good-practice/schools)
