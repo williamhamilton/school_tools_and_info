@@ -24,6 +24,14 @@ Teachers and staff rely heavily on cloud-based tools for teaching and administra
 - **Microsoft 365** – used primarily for Outlook email, with some use of Word, Excel, and PowerPoint.  
 - Staff store critical files, planning documents, and communication records in these systems.
 
+### Current Cloud Storage Usage
+
+| Platform | Total Storage | Used Storage | Notes |
+|----------|---------------|--------------|-------|
+| Google Workspace | 10 TB | 7.2 TB | Shared Drives account for 5 TB |
+| Microsoft 365 | 5 TB | 3.5 TB | Includes Outlook mailboxes and OneDrive |
+| **Total** | 15 TB | 10.7 TB | Approximate values; growth ~10% per year |
+
 ---
 
 ## 3. Why Backups Still Matter
@@ -79,6 +87,24 @@ They allow granular recovery (emails, individual files, or whole accounts) throu
 ### C. Hybrid Policy Approach
 Combine retention policies in Google Admin and Microsoft 365 with a third-party backup for critical data.  
 This provides short-term coverage through retention and long-term resilience through independent backup.
+
+---
+
+## 6b. Pricing and Budget Implications
+
+The following table provides a **placeholder for estimated costs**, using current storage usage. Vendors can provide detailed quotes based on the actual number of users and storage requirements.
+
+| Vendor | Licence Model | Estimated Annual Cost | Notes |
+|--------|--------------|---------------------|-------|
+| Backupify for Education | Per-user | NZ$X,000–NZ$Y,000 | Covers Google & M365 |
+| Afi.ai | Storage-based | NZ$X,000–NZ$Y,000 | Includes auto-restore features |
+| SpinBackup | Per-user | NZ$X,000–NZ$Y,000 | Optional add-ons: extended retention |
+| Redstor | Storage-based | NZ$X,000–NZ$Y,000 | NZ-based data residency |
+
+**Budget Notes:**
+- Costs are indicative; actual pricing depends on number of users, storage used, and retention period.  
+- Backup reduces risk of data loss across all teaching and administrative functions.  
+- Planning for 5–7 years retention ensures compliance with public-sector record-keeping standards.
 
 ---
 
