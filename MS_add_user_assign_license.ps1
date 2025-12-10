@@ -1,3 +1,8 @@
+# Example csv
+# UserPrincipalName,DisplayName,GivenName,Surname
+# alice@student.subschool.nz,Alice Example,Alice,Example
+# bob@student.subschool.nz,Bob Test,Bob,Test
+
 # Install Graph module if needed
 if (-not (Get-Module -ListAvailable Microsoft.Graph)) {
     Install-Module Microsoft.Graph -Scope CurrentUser -Force
