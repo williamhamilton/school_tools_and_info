@@ -1,0 +1,24 @@
+google:
+  service_account_file: "service_account.json"
+  delegated_admin: "admin@yourdomain.com"
+  org_unit_path: "/Students"
+  auto_generate_email: true
+  default_domain: "yourdomain.com"
+
+script:
+  csv_file: "students.csv"
+  success_log: "created_accounts.csv"
+  failure_log: "failed_accounts.csv"
+  password_length: 12
+  dry_run: false
+  rate_limit_delay: 0.2
+  include_password_in_email: true
+
+smtp:
+  server: "smtp.office365.com"
+  port: 587
+  user: "it@yourdomain.com"
+  password_env: "SMTP_PASSWORD"
+  recipient: "teachers@yourdomain.com"
+  cc:
+    - "headteacher@yourdomain.com"
