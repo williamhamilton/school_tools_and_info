@@ -1,0 +1,43 @@
+##################################################################
+# Ignore the log files
+##################################################################
+/data
+/logs
+# SQL Logging
+/sql_queries.log
+/sql_queries.log.*
+# Application logging
+/application_errors.log
+/application_errors.log.*
+application_errors.log
+application_errors.log.*
+# PDF Merge process logging wrt letters for email merging
+/pdf_merging_letters_for_email.log
+/pdf_merging_letters_for_email.log.*
+# PDF Merge process logging wrt letters for printing merging
+/pdf_merging_letters_for_printing.log
+/pdf_merging_letters_for_printing.log.*
+##################################################################
+# Ignore the lock files which are produced
+# as a side-effect of the multi-task logging
+##################################################################
+.__application_errors.lock
+.__sql_queries.lock
+.__pdf_merge.lock
+.__pdf_merging.lock
+.__pdf_merging_letters_for_email.lock
+.__pdf_merging_letters_for_printing.lock
+##################################################################
+#
+app/pdf_generation_log.txt
+# Richards vim session file
+shea1.sess
+#
+/key_material
+#
+/.venv
+/.idea
+/config.ini
+**/__pycache__/
+/.env
+
