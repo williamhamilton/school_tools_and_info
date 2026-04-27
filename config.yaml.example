@@ -13,6 +13,7 @@ script:
   dry_run: false
   rate_limit_delay: 0.2
   include_password_in_email: true
+  force_password_change_at_login: true
 
 smtp:
   server: "smtp.office365.com"
