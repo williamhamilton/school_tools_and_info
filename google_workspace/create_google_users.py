@@ -4,18 +4,19 @@ Google Workspace Student Account Creation Script
 Purpose:
     - Read student data from a CSV file.
     - Create Google Workspace accounts for students.
-    - Set passwords from the CSV.
+    - Set passwords from the CSV (or auto-generate if not provided).
     - Assign students to a specific OU.
-    - Force password reset at first login.
+    - Optionally force password reset at first login (configurable).
 Requirements:
     - Google Service Account with Admin SDK enabled and domain-wide delegation.
-    - CSV with columns: First Name, Last Name, Email, Password
-    - Install dependencies: pandas, google_workspace-api-python-client, google_workspace-auth
+    - CSV with columns: First Name, Last Name, Email, Password (optional), Class (optional)
+    - Install dependencies: pandas, google-api-python-client, google-auth
 """
 # ---------------------------------------------------------------------------------------------------------------------
 __author__ = "William Hamilton"
-__python__ = ""
+__python__ = "3.8+"
 __created__ = "18/02/2026"
+__updated__ = "22/02/2026"
 __copyright__ = "Copyright © 2026~"
 __license__ = ""
 __ToDo__ = """
@@ -212,7 +213,7 @@ def main() -> dict:
     if args.csv:
         config["script"]["csv_file"] = args.csv
     if args.ou:
-        config["google_workspace"]["org_unit_path"] = args.ou
+        config["google"]["org_unit_path"] = args.ou
     if args.recipient:
         config["smtp"]["recipient"] = args.recipient
     if args.dry_run:
@@ -221,6 +222,7 @@ def main() -> dict:
     dry_run = config["script"].get("dry_run", False)
     password_length = config["script"].get("password_length", 12)
     rate_delay = config["script"].get("rate_limit_delay", 0.2)
+    force_password_change = config["script"].get("force_password_change_at_login", True)
 
     try:
         df = pd.read_csv(config["script"]["csv_file"])
@@ -241,8 +243,8 @@ def main() -> dict:
     service = None
     if not dry_run:
         service = create_google_service(
-            config["google_workspace"]["service_account_file"],
-            config["google_workspace"]["delegated_admin"]
+            config["google"]["service_account_file"],
+            config["google"]["delegated_admin"]
         )
 
     created_students = []
@@ -250,20 +252,21 @@ def main() -> dict:
 
     for idx, row in df.iterrows():
 
-        first_name = str(row.get("First Name", "")).strip()
-        last_name = str(row.get("Last Name", "")).strip()
-        email = str(row.get("Email", "")).strip()
+        first_name = str(row.get("First Name", "")).strip() if pd.notna(row.get("First Name")) else ""
+        last_name = str(row.get("Last Name", "")).strip() if pd.notna(row.get("Last Name")) else ""
+        email = str(row.get("Email", "")).strip() if pd.notna(row.get("Email")) else ""
+        password = str(row.get("Password", "")).strip() if pd.notna(row.get("Password")) else ""
         class_name = row.get("Class", "No Class")
 
-        if not first_name or not last_name:
+        if not first_name or not last_name or first_name == "nan" or last_name == "nan":
             logger.warning(f"Row {idx}: Missing name.")
             failure_count += 1
             failure_writer.writerow([first_name, last_name, email, "Missing name", class_name])
             continue
 
         # Auto-generate email if missing
-        if not email and config["google_workspace"].get("auto_generate_email"):
-            domain = config["google_workspace"]["default_domain"]
+        if not email and config["google"].get("auto_generate_email"):
+            domain = config["google"]["default_domain"]
             clean_first = re.sub(r"[^a-zA-Z0-9]", "", first_name)
             clean_last = re.sub(r"[^a-zA-Z0-9]", "", last_name)
             email = f"{clean_first}.{clean_last}@{domain}".lower()
@@ -279,15 +282,17 @@ def main() -> dict:
                 logger.info(f"User already exists: {email}")
                 continue
 
-            password = generate_secure_password(password_length)
+            # Use password from CSV if provided, otherwise generate one
+            if not password:
+                password = generate_secure_password(password_length)
 
             if not dry_run:
                 user_body = {
                     "name": {"givenName": first_name, "familyName": last_name},
                     "password": password,
                     "primaryEmail": email,
-                    "orgUnitPath": config["google_workspace"]["org_unit_path"],
-                    "changePasswordAtNextLogin": True
+                    "orgUnitPath": config["google"]["org_unit_path"],
+                    "changePasswordAtNextLogin": force_password_change
                 }
                 create_user_with_retry(service, user_body)
                 logger.info(f"Created: {email}")
