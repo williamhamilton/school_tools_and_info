@@ -41,3 +41,7 @@ shea1.sess
 **/__pycache__/
 /.env
 
+# Local-only Microsoft secrets/config files
+/Microsoft/secrets.config.local.psd1
+/Microsoft/*.credential.clixml
+/Microsoft/*.secrets.*
