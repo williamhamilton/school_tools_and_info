@@ -29,4 +29,3 @@
 - Press and hold the **Windows + Backspace** keys.
 - While holding those keys, press the **Power** button.
 - Reconnect the AC adapter, then press and hold the **Power** button again to restart the device.
-- 
